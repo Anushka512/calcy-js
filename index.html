@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calcy</title>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <style>
+  
+body {
+  background:#04b8f4;
+  font-size: 12px;
+}
+
+body, button, input {
+  font-family: 'Righteous', cursive;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.background {
+  display: flex;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 0 1 700px;
+  margin: auto;
+  padding: 10px;
+}
+
+.screen {
+  position: relative;
+  background: #000000;
+  border-radius: 15px;
+  transition: 1s;
+  box-shadow: -30px 30px 20px rgba(0, 0, 0, .4);
+}
+.screen:hover{
+  transform: scale(1.1);
+}
+
+.screen:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+  z-index: -1;
+}
+
+.screen-body {
+  display: flex;
+}
+
+.screen-body-item {
+  flex: 1;
+  padding: 50px;
+}
+
+.screen-body-item.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.app-title {
+  display: flex;
+  /*flex-direction: column;*/
+  justify-content: center;
+  align-items: center;
+  color: #00b7ff;
+  font-size: 26px;
+  text-transform: uppercase;
+  border-left: 4px solid #00ddff;
+  padding: 10px;
+}
+
+.app-form-group {
+  margin-bottom: 15px;
+}
+
+.app-form-group.buttons {
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.app-form-control {
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.app-form-control::placeholder {
+  color: #FFF;
+}
+
+.app-form-control:focus {
+  border-bottom-color: #ddd;
+}
+
+.app-form-button {
+  background: none;
+  border: none;
+  color: #07eaff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.app-form-button:hover {
+  color: #218c74;
+}
+
+.showdata{
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  padding-top: -10px;
+  padding-bottom: 10px;
+}
+
+  </style>
+  </head>
+  <body>
+    <div class="background">
+      <div class="container">
+        <div class="screen">
+          <div class="screen-body">
+            <div class="screen-body-item left">
+              <div class="app-title">
+                <div class="animated infinite pulse">
+                  Student <br />
+                  Grade <br />
+                  Calcy
+                </div>
+              </div>
+            </div>
+            <div class="screen-body-item">
+              <div class="app-form">
+                <div class="app-form-group">
+                  <input
+                    type="text"
+                    class="app-form-control"
+                    placeholder="TOC"
+                    id="toc"
+                  />
+                </div>
+                <div class="app-form-group">
+                  <input
+                    type="text"
+                    class="app-form-control"
+                    placeholder="CN"
+                    id="cn"
+                  />
+                </div>
+                <div class="app-form-group">
+                  <input
+                    type="text"
+                    class="app-form-control"
+                    placeholder="IOT"
+                    id="iot"
+                  />
+                </div>
+                <div class="app-form-group">
+                  <input
+                    type="text"
+                    class="app-form-control"
+                    placeholder="ADA"
+                    id="ada"
+                  />
+                </div>
+                <div class="app-form-group">
+                  <input
+                    type="text"
+                    class="app-form-control"
+                    placeholder="GE"
+                    id="ge"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="button"
+                    value="showPercentage"
+                    class="app-form-button"
+                    onclick="calcy()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="app-form-group showdata">
+            <p id="showData"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const calcy = () => {
+        let toc = document.getElementById("toc").value;
+        let cn = document.getElementById("cn").value;
+        let iot = document.getElementById("iot").value;
+        let ada = document.getElementById("ada").value;
+        let ge = document.getElementById("ge").value;
+        let grades = " ";
+
+        let totalGrades =
+          parseFloat(toc) +
+          parseFloat(cn) +
+          parseFloat(iot) +
+          parseFloat(ada) +
+          parseFloat(ge); 
+
+        let percent = (totalGrades / 500) * 100;
+
+        if (percent <= 100 && percent >= 80) {
+          grades = "A";
+        } else if (percent <= 79 && percent >= 60) {
+          grades = "B";
+        } else if (percent <= 59 && percent >= 40) {
+          grades = "C";
+        } else {
+          grades = "D";
+        }
+
+        if (percent >= 39.5) {
+          document.getElementById(
+            "showData"
+          ).innerHTML = ` Out of 500 your total is ${totalGrades} and percentage is ${percent}%. <br> Your grade is ${grades}. You are Pass.`;
+        } else {
+          document.getElementById(
+            "showData"
+          ).innerHTML = ` Out of 500 your total is ${totalGrades} and percentage is ${percent}%. <br> Your grade is ${grades}. You are Fail.`;
+        }
+      };
+    </script>
+  </body>
+</html>
